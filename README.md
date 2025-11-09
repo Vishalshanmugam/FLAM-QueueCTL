@@ -20,12 +20,12 @@ Job data is persisted in SQLite, allowing recovery across restarts.
 - SQLite (included with Python)
 Installation
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd QueueCTL
-python3 -m venv venv
-source venv/bin/activate      # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-pip install -e .
+$ git clone <github clone link>.git
+$ cd QueueCTL
+$ python3 -m venv venv
+$ source venv/bin/activate      # On Windows: venv\Scripts\activate
+$ pip install -r requirements.txt
+$ pip install -e .
 ```
 
 ## 3. Usage Examples
@@ -36,7 +36,7 @@ Add your screenshots after each section.
 
 Adds a new job to the queue.
 ```bash
-queuectl enqueue '{"id":"job1","command":"echo Hello World"}'
+$ queuectl enqueue '{"id":"job1","command":"echo Hello World"}'
 ```
 
 #### Description:
@@ -50,7 +50,7 @@ Creates a job with the provided command and adds it to the queue for processing.
 
 Starts one or more worker processes to process queued jobs.
 ```bash
-queuectl worker start --count 3
+$ queuectl worker start --count 3
 ```
 
 #### Description:
@@ -65,7 +65,7 @@ Each worker picks jobs from the queue and executes them.
 
 Stops all currently running workers.
 ```bash
-queuectl worker stop
+$ queuectl worker stop
 ```
 
 #### Description:
@@ -79,7 +79,7 @@ Stops all worker processes gracefully after finishing current tasks.
 
 Displays a summary of jobs by state and the number of active workers.
 ```bash
-queuectl status
+$ queuectl status
 ```
 
 #### Description:
@@ -93,7 +93,7 @@ Shows the number of jobs in pending, processing, completed, failed, and dead sta
 
 Lists jobs in a specific state (e.g., pending, completed, dead).
 ```bash
-queuectl list --state pending
+$ queuectl list --state pending
 ```
 
 #### Description:
@@ -107,7 +107,7 @@ Lists all jobs that are currently waiting for processing.
 
 View DLQ Jobs
 ```bash
-queuectl dlq list
+$ queuectl dlq list
 ```
 
 #### Description:
@@ -119,7 +119,7 @@ Displays all jobs that have failed permanently and moved to the DLQ.
 
 Retry DLQ Job
 ```bash
-queuectl dlq retry <job_id>
+$ queuectl dlq retry <job_id>
 ```
 
 #### Description:
@@ -133,7 +133,7 @@ Retries a failed job from the DLQ by moving it back to the pending queue.
 
 Modify runtime configuration such as retry count and backoff base.
 ```bash
-queuectl config set max_retries 3
+$ queuectl config set max_retries 3
 ```
 
 #### Description:
@@ -147,9 +147,9 @@ Updates configuration values stored persistently for workers and retry logic.
 
 Removes jobs from the database by state or clears everything.
 ```bash
-queuectl clear --state all
-queuectl clear --state completed
-queuectl clear --state dead
+$ queuectl clear --state all
+$ queuectl clear --state completed
+$ queuectl clear --state dead
 ```
 
 #### Description:
@@ -172,17 +172,16 @@ Clears job entries from the SQLite database without deleting the file.
 
 ### Core Components:
 
-```bash
-$ queuectl/cli.py – Command-line interface
+a) queuectl/cli.py – Command-line interface
 
-$ queuectl/db.py – SQLite-based job storage
+b) queuectl/db.py – SQLite-based job storage
 
-$ queuectl/worker.py – Worker process logic
+c) queuectl/worker.py – Worker process logic
 
-$ queuectl/job.py – Job creation and handling
+d) queuectl/job.py – Job creation and handling
 
-$ queuectl/config.py – Configuration management
-```
+e) queuectl/config.py – Configuration management
+
 
 ## 5. Testing Instructions
 
@@ -196,21 +195,21 @@ Expected: Job moves to completed.
 
 Enqueue a failing job:
 ```bash
-queuectl enqueue '{"id":"fail_job","command":"exit 1","max_retries":2}'
+$ queuectl enqueue '{"id":"fail_job","command":"exit 1","max_retries":2}'
 ```
 
 Expected: Job retries twice, then moves to DLQ.
 
 Retry the DLQ job:
 ```bash
-queuectl dlq retry fail_job
+$ queuectl dlq retry fail_job
 ```
 
 Expected: Job moves back to pending.
 
 Clear jobs:
 ```bash
-queuectl clear --state all
+$ queuectl clear --state all
 ```
 
 Expected: All jobs are removed from storage.
