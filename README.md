@@ -32,7 +32,7 @@ $ pip install -e .
 Below are the supported commands and their purposes.
 Add your screenshots after each section.
 
-### 1. Enqueue a Job
+### a. Enqueue a Job
 
 Adds a new job to the queue.
 ```bash
@@ -46,7 +46,7 @@ Creates a job with the provided command and adds it to the queue for processing.
 
 ![screenshot](Screenshots/screenshot1.png)
 
-### 2. Start Workers
+### b. Start Workers
 
 Starts one or more worker processes to process queued jobs.
 ```bash
@@ -61,7 +61,7 @@ Each worker picks jobs from the queue and executes them.
 
 ![screenshot](Screenshots/screenshot2.png)
 
-### 3. Stop Workers
+### c. Stop Workers
 
 Stops all currently running workers.
 ```bash
@@ -75,7 +75,7 @@ Stops all worker processes gracefully after finishing current tasks.
 
 ![screenshot](Screenshots/screenshot4.png)
 
-### 4. Check Queue Status
+### d. Check Queue Status
 
 Displays a summary of jobs by state and the number of active workers.
 ```bash
@@ -89,7 +89,7 @@ Shows the number of jobs in pending, processing, completed, failed, and dead sta
 
 ![screenshot](Screenshots/screenshot3.png)
 
-### 5. List Jobs by State
+### e. List Jobs by State
 
 Lists jobs in a specific state (e.g., pending, completed, dead).
 ```bash
@@ -103,7 +103,7 @@ Lists all jobs that are currently waiting for processing.
 
 ![screenshot](Screenshots/screenshot5.png)
 
-### 6. Dead Letter Queue (DLQ)
+### f. Dead Letter Queue (DLQ)
 
 View DLQ Jobs
 ```bash
@@ -129,7 +129,7 @@ Retries a failed job from the DLQ by moving it back to the pending queue.
 
 ![screenshot](Screenshots/screenshot7.png)
 
-### 7. Configuration Management
+### g. Configuration Management
 
 Modify runtime configuration such as retry count and backoff base.
 ```bash
@@ -143,7 +143,7 @@ Updates configuration values stored persistently for workers and retry logic.
 
 ![screenshot](Screenshots/screenshot9.png)
 
-### 8. Clear Jobs
+### h. Clear Jobs
 
 Removes jobs from the database by state or clears everything.
 ```bash
@@ -163,14 +163,14 @@ Clears job entries from the SQLite database without deleting the file.
 
 ### Job Lifecycle:
 
-### State	Description
+#### State	Description
 - pending	Waiting to be picked by a worker
 - processing	Currently executing
 - completed	Successfully executed
 - failed	Failed but will retry
 - dead - Permanently failed and moved to DLQ
 
-### Core Components:
+#### Core Components:
 
 a) queuectl/cli.py – Command-line interface
 
